@@ -52,7 +52,7 @@ fi
 if ! has_command doggo; then
   github_install_tar \
     "mr-karan/doggo" \
-    "doggo_.*_linux_amd64\.tar\.gz" \
+    "doggo_.*_Linux_x86_64\.tar\.gz" \
     "doggo"
 fi
 
