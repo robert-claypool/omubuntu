@@ -11,8 +11,7 @@ source "$OMUBUNTU_PATH/lib/core.sh"
 # Returns: tag name (e.g., "v1.2.3")
 github_latest_tag() {
   local repo="$1"
-  curl -sL "https://api.github.com/repos/$repo/releases/latest" | \
-    grep -Po '"tag_name": "\K[^"]*'
+  curl -sL "https://api.github.com/repos/$repo/releases/latest" | jq -r '.tag_name'
 }
 
 # Get the latest release tag, stripping the 'v' prefix
@@ -36,7 +35,7 @@ github_download_asset() {
 
   local download_url
   download_url=$(curl -sL "https://api.github.com/repos/$repo/releases/latest" | \
-    grep -Po '"browser_download_url": "\K[^"]*' | \
+    jq -r '.assets[].browser_download_url' | \
     grep -E "$asset_regex" | head -1)
 
   if [[ -z "$download_url" ]]; then
