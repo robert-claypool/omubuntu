@@ -1,0 +1,160 @@
+#!/bin/bash
+# omubuntu CLI
+#
+# Subcommands:
+#   install   Transform Ubuntu into a delightful dev environment
+#   version   Show version
+#   help      Show help
+#
+# This is bash today, can be replaced with Go binary later.
+# The interface (subcommands, flags) should stay stable.
+
+set -euo pipefail
+
+# Resolve paths
+OMUBUNTU_PATH="${OMUBUNTU_PATH:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+export OMUBUNTU_PATH
+
+# Source libraries
+source "$OMUBUNTU_PATH/lib/core.sh"
+source "$OMUBUNTU_PATH/lib/state.sh"
+
+VERSION="0.1.0"
+
+# -----------------------------------------------------------------------------
+# Subcommands
+# -----------------------------------------------------------------------------
+
+cmd_version() {
+  echo "omubuntu $VERSION"
+}
+
+cmd_help() {
+  cat <<EOF
+omubuntu - Omarchy-style Ubuntu developer environment
+
+Usage:
+  omubuntu install [options]    Install developer tools and configs
+  omubuntu version              Show version
+  omubuntu help                 Show this help
+
+Install options:
+  --user <name>       Target user for dotfiles (default: current user)
+  --devpc             Include dev PC extras (DCV, tailscale hooks)
+  --no-desktop        Skip desktop apps (terminal tools only)
+  --force             Re-run even if already installed
+
+Examples:
+  # Fresh Ubuntu install
+  ./install.sh install --user alice
+
+  # EC2 dev PC with DCV
+  ./install.sh install --user robert --devpc
+
+  # Terminal tools only (no GUI apps)
+  ./install.sh install --no-desktop
+EOF
+}
+
+cmd_install() {
+  local target_user="${USER}"
+  local include_desktop=true
+  local include_devpc=false
+  local force=false
+
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --user)
+        target_user="$2"
+        shift 2
+        ;;
+      --no-desktop)
+        include_desktop=false
+        shift
+        ;;
+      --devpc)
+        include_devpc=true
+        shift
+        ;;
+      --force)
+        force=true
+        shift
+        ;;
+      *)
+        die "Unknown option: $1"
+        ;;
+    esac
+  done
+
+  export OMUBUNTU_USER="$target_user"
+  export OMUBUNTU_HOME=$(eval echo "~$target_user")
+
+  log "omubuntu $VERSION"
+  log "Target user: $target_user"
+  log "Home: $OMUBUNTU_HOME"
+
+  # Check if already installed (unless --force)
+  if [[ "$force" != "true" ]] && state_is_installed; then
+    log "Already installed (use --force to re-run)"
+    exit 0
+  fi
+
+  # Require root for system installs
+  require_root
+
+  # Run installation phases
+  log "Starting installation..."
+
+  # Phase: Terminal tools
+  log "=== Terminal Tools ==="
+  source "$OMUBUNTU_PATH/install/terminal.sh"
+
+  # Phase: Desktop apps (optional)
+  if [[ "$include_desktop" == "true" ]]; then
+    log "=== Desktop Apps ==="
+    source "$OMUBUNTU_PATH/install/desktop.sh"
+  fi
+
+  # Phase: Dev PC extras (optional)
+  if [[ "$include_devpc" == "true" ]] && [[ -f "$OMUBUNTU_PATH/install/devpc.sh" ]]; then
+    log "=== Dev PC Extras ==="
+    source "$OMUBUNTU_PATH/install/devpc.sh"
+  fi
+
+  # Phase: Dotfiles
+  log "=== Dotfiles ==="
+  source "$OMUBUNTU_PATH/lib/files.sh"
+  sync_home_files
+
+  # Mark as installed
+  state_write_installed "$VERSION"
+
+  log "Installation complete!"
+}
+
+# -----------------------------------------------------------------------------
+# Main
+# -----------------------------------------------------------------------------
+
+main() {
+  local cmd="${1:-help}"
+  shift || true
+
+  case "$cmd" in
+    install)
+      cmd_install "$@"
+      ;;
+    version)
+      cmd_version
+      ;;
+    help|--help|-h)
+      cmd_help
+      ;;
+    *)
+      die "Unknown command: $cmd (try 'omubuntu help')"
+      ;;
+  esac
+}
+
+main "$@"
