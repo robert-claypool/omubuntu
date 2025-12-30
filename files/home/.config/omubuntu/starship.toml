@@ -1,0 +1,41 @@
+# omubuntu managed Starship prompt configuration
+# This file is owned by omubuntu and may be updated automatically.
+
+format = """
+$username$hostname$directory$git_branch$git_status$cmd_duration$character"""
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+
+[username]
+show_always = false
+format = "[$user]($style) "
+style_user = "bold cyan"
+style_root = "bold red"
+
+[hostname]
+ssh_only = true
+format = "[@$hostname]($style) "
+style = "bold cyan"
+
+[git_branch]
+format = "[$branch]($style) "
+style = "purple"
+
+[git_status]
+format = "[$all_status$ahead_behind]($style) "
+style = "red"
+
+[cmd_duration]
+min_time = 2000
+format = "[$duration]($style) "
+style = "yellow"
+
+[vi_mode]
+disabled = true
+
+[character]
+success_symbol = "[>](green)"
+error_symbol = "[>](red)"
+vimcmd_symbol = "[<](green)"

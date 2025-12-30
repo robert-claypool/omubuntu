@@ -126,6 +126,7 @@ cmd_install() {
   # Phase: Dotfiles
   log "=== Dotfiles ==="
   source "$OMUBUNTU_PATH/lib/files.sh"
+  sync_managed_home_files
   sync_home_files
 
   # Mark as installed

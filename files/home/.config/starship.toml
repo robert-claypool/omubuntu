@@ -1,21 +1,8 @@
-# Starship prompt configuration
-# Minimal and fast
-
-format = """
-$directory$git_branch$git_status$character"""
-
-[directory]
-truncation_length = 3
-truncate_to_repo = true
-
-[git_branch]
-format = "[$branch]($style) "
-style = "purple"
-
-[git_status]
-format = '[$all_status$ahead_behind]($style) '
-style = "red"
-
-[character]
-success_symbol = "[❯](green)"
-error_symbol = "[❯](red)"
+# omubuntu starship configuration (user stub)
+#
+# The active Starship config is managed by omubuntu:
+#   ~/.config/omubuntu/starship.toml
+#
+# ~/.zshrc sets STARSHIP_CONFIG to point at the managed file.
+# To customize your prompt, edit ~/.zshrc (or unset STARSHIP_CONFIG) and create
+# your own ~/.config/starship.toml.

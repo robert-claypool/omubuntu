@@ -22,6 +22,46 @@ sync_rootfs_files() {
   fi
 }
 
+sync_managed_home_files() {
+  local src="$OMUBUNTU_PATH/files/home/.config/omubuntu"
+  local dest_home
+  dest_home=$(get_home)
+  local dest="$dest_home/.config/omubuntu"
+  local user
+  user=$(get_user)
+
+  if [[ ! -d "$src" ]]; then
+    return 0
+  fi
+
+  log "Syncing omubuntu managed configs to $dest (user: $user)..."
+
+  # Ensure destination exists
+  if [[ ! -d "$dest" ]]; then
+    as_user mkdir -p "$dest"
+  fi
+
+  # Use rsync for clean updates (including deletes), fall back to manual copy
+  if has_command rsync; then
+    rsync -av --delete "$src/" "$dest/"
+  else
+    while IFS= read -r -d '' file; do
+      local rel_path="${file#$src/}"
+      local dest_path="$dest/$rel_path"
+      local dest_dir
+      dest_dir=$(dirname "$dest_path")
+
+      if [[ ! -d "$dest_dir" ]]; then
+        as_user mkdir -p "$dest_dir"
+      fi
+
+      cp "$file" "$dest_path"
+    done < <(find "$src" -type f -print0)
+  fi
+
+  chown -R "$user:$user" "$dest"
+}
+
 # Sync dotfiles from files/home/ to user's home directory
 # Safe semantics: only copy if destination doesn't exist (don't clobber)
 sync_home_files() {
@@ -40,6 +80,12 @@ sync_home_files() {
   # Walk the source tree and copy files that don't exist at destination
   while IFS= read -r -d '' file; do
     local rel_path="${file#$src/}"
+
+    # Managed overlay (updated separately; don't safe-sync it)
+    if [[ "$rel_path" == .config/omubuntu/* ]]; then
+      continue
+    fi
+
     local dest_path="$dest/$rel_path"
     local dest_dir
     dest_dir=$(dirname "$dest_path")
