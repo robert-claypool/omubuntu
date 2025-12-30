@@ -7,6 +7,13 @@ source "$OMUBUNTU_PATH/lib/apt.sh"
 if has_command alacritty; then
   log "Alacritty already installed"
 else
+  # Alacritty not in default Ubuntu repos - add PPA
+  if ! grep -q "aslatter/ppa" /etc/apt/sources.list.d/*.list 2>/dev/null; then
+    log "Adding Alacritty PPA..."
+    add-apt-repository -y ppa:aslatter/ppa
+    apt-get update -y
+  fi
+
   apt_install alacritty
 
   # Set as default terminal (MATE desktop)
