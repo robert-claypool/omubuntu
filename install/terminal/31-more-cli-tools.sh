@@ -67,8 +67,9 @@ fi
 # atuin - shell history with sync
 if ! has_command atuin; then
   log "Installing atuin..."
-  curl -sS https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh | bash
-  mv ~/.atuin/bin/atuin /usr/local/bin/ 2>/dev/null || true
+  # Atuin installer needs HOME set - use OMUBUNTU_HOME for target user
+  HOME="${OMUBUNTU_HOME:-$HOME}" curl -sS https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh | HOME="${OMUBUNTU_HOME:-$HOME}" bash
+  mv "$OMUBUNTU_HOME/.atuin/bin/atuin" /usr/local/bin/ 2>/dev/null || true
   success "Installed atuin"
 fi
 
