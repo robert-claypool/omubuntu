@@ -17,6 +17,11 @@ alias lt='eza --tree --icons'
 alias cat='bat --paging=never'
 alias grep='rg'
 alias find='fd'
+alias ps='procs'
+alias du='dust'
+alias df='duf'
+alias top='btm'
+alias dig='doggo'
 
 # Git aliases
 alias g='git'
@@ -32,11 +37,13 @@ alias gb='git branch'
 alias vim='nvim'
 alias v='nvim'
 alias lg='lazygit'
+alias c='claude'
 
 # Initialize tools
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
+eval "$(atuin init zsh)" 2>/dev/null || true
 
 # FZF integration
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
