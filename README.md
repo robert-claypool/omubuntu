@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/robert-claypool/omubuntu/actions/workflows/ci.yml/badge.svg)](https://github.com/robert-claypool/omubuntu/actions/workflows/ci.yml)
 
-> **Alpha Release** - This project is under active development. APIs and tool selections may change.
+> **Beta Release** - Feature complete, stabilizing. Tested on Ubuntu 22.04 LTS.
 
 Omarchy-style developer environment for Ubuntu. Transform a fresh Ubuntu installation into a delightful, opinionated development system.
 
