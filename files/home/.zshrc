@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # omubuntu ZSH configuration
 # Opinionated defaults for a delightful shell experience
 

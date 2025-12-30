@@ -88,7 +88,8 @@ cmd_install() {
   done
 
   export OMUBUNTU_USER="$target_user"
-  export OMUBUNTU_HOME=$(eval echo "~$target_user")
+  OMUBUNTU_HOME=$(eval echo "~$target_user")
+  export OMUBUNTU_HOME
 
   log "omubuntu $VERSION"
   log "Target user: $target_user"
