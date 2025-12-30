@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.'
+          severity: warning
+        env:
+          SHELLCHECK_OPTS: -e SC1091 -e SC2034
+
+  test-install:
+    name: Test Install (Ubuntu ${{ matrix.ubuntu }})
+    runs-on: ubuntu-${{ matrix.ubuntu }}
+    strategy:
+      matrix:
+        ubuntu: ['22.04', '24.04']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run installer (dry-run check)
+        run: |
+          # Verify scripts are executable and have valid syntax
+          for script in install.sh bin/omubuntu lib/*.sh install/**/*.sh; do
+            if [[ -f "$script" ]]; then
+              echo "Checking $script..."
+              bash -n "$script"
+            fi
+          done

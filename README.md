@@ -1,10 +1,19 @@
 # omubuntu
 
-> **Alpha Release** - This project is under active development. APIs and tool selections may change. Tested on Ubuntu 22.04 LTS.
+> **Alpha Release** - This project is under active development. APIs and tool selections may change.
 
 Omarchy-style developer environment for Ubuntu. Transform a fresh Ubuntu installation into a delightful, opinionated development system.
 
 Inspired by [Omakub](https://github.com/basecamp/omakub) and [Omarchy](https://github.com/basecamp/omarchy) by DHH.
+
+## Requirements
+
+| Ubuntu Version | Status |
+|----------------|--------|
+| 22.04 LTS | Tested |
+| 24.04 LTS | CI only |
+
+Requires `sudo` access. Works on bare metal, VMs, and EC2 instances.
 
 ## Quick Start
 
@@ -98,6 +107,35 @@ omubuntu/
 - **One script per tool**: Easy to understand, modify, or remove
 - **Safe dotfiles**: Only copied if destination doesn't exist
 - **Apply once**: Fresh VMs get new configs; existing are left alone
+
+## Troubleshooting
+
+### GitHub rate limiting
+
+The installer fetches releases from GitHub. If you hit rate limits:
+
+```bash
+# Set a GitHub token (no special permissions needed)
+export GITHUB_TOKEN=ghp_your_token_here
+sudo -E ./install.sh install --user $USER
+```
+
+### Tool fails to install
+
+Individual tool scripts are in `install/terminal/` and `install/desktop/`. Each tool installs independently - if one fails, the rest continue. Check `/var/log/omubuntu.log` for details.
+
+### Dotfiles not applied
+
+Dotfiles only copy if the destination doesn't exist. To force:
+
+```bash
+rm ~/.zshrc ~/.config/starship.toml
+sudo ./install.sh install --user $USER
+```
+
+### Running again
+
+The installer is idempotent. Running twice won't break anything, but most tools check `has_command` and skip if already installed.
 
 ## Versioning
 

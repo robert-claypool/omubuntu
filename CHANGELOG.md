@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Desktop apps: Alacritty terminal
 - Dev PC mode for EC2 instances with DCV
 - GitHub release helpers for installing tools from releases
+- CI pipeline with shellcheck and syntax validation
+- Requirements table in README with tested Ubuntu versions
+- Troubleshooting section in README
 
 ### Fixed
 - Use jq instead of grep -P for JSON parsing (PCRE not available on Ubuntu by default)
