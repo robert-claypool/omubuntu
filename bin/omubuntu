@@ -57,7 +57,7 @@ EOF
 }
 
 cmd_install() {
-  local target_user="${USER}"
+  local target_user="${USER:-$(whoami)}"
   local include_desktop=true
   local include_devpc=false
   local force=false
