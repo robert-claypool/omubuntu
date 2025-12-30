@@ -9,6 +9,6 @@ if has_command lazygit; then
 else
   github_install_tar \
     "jesseduffield/lazygit" \
-    "lazygit_.*_Linux_x86_64\.tar\.gz" \
+    "lazygit_.*_linux_x86_64\.tar\.gz" \
     "lazygit"
 fi
