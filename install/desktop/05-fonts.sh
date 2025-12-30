@@ -17,14 +17,14 @@ else
 
   mkdir -p "$FONT_DIR"
 
-  local tmp_zip="/tmp/JetBrainsMono.zip"
+  _tmp_zip="/tmp/JetBrainsMono.zip"
   github_download_asset \
     "ryanoasis/nerd-fonts" \
     "JetBrainsMono\.zip" \
-    "$tmp_zip"
+    "$_tmp_zip"
 
-  unzip -o "$tmp_zip" -d "$FONT_DIR"
-  rm -f "$tmp_zip"
+  unzip -o "$_tmp_zip" -d "$FONT_DIR"
+  rm -f "$_tmp_zip"
 
   # Refresh font cache
   fc-cache -fv

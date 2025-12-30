@@ -33,10 +33,10 @@ fi
 # procs - modern ps replacement
 if ! has_command procs; then
   log "Installing procs..."
-  local tmp_zip="/tmp/procs.zip"
-  github_download_asset "dalance/procs" "procs-v.*-x86_64-linux\.zip" "$tmp_zip"
-  unzip -o "$tmp_zip" -d /usr/local/bin
-  rm -f "$tmp_zip"
+  _tmp_zip="/tmp/procs.zip"
+  github_download_asset "dalance/procs" "procs-v.*-x86_64-linux\.zip" "$_tmp_zip"
+  unzip -o "$_tmp_zip" -d /usr/local/bin
+  rm -f "$_tmp_zip"
   success "Installed procs"
 fi
 

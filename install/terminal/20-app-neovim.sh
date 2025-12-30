@@ -11,7 +11,7 @@ if has_command nvim; then
 else
   log "Installing Neovim $NVIM_VERSION..."
 
-  cd /tmp
+  cd /tmp || exit 1
   wget -q "https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.tar.gz"
   tar xzf nvim-linux64.tar.gz
 

@@ -10,9 +10,8 @@ else
   apt_install zsh
 
   # Set ZSH as default shell for target user
-  local user
-  user=$(get_user)
-  chsh -s /usr/bin/zsh "$user"
+  _user=$(get_user)
+  chsh -s /usr/bin/zsh "$_user"
 
   success "ZSH installed and set as default shell"
 fi

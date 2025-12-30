@@ -53,7 +53,8 @@ github_download_asset() {
 github_install_deb() {
   local repo="$1"
   local asset_regex="$2"
-  local tmp_deb="/tmp/$(basename "$repo").deb"
+  local tmp_deb
+  tmp_deb="/tmp/$(basename "$repo").deb"
 
   github_download_asset "$repo" "$asset_regex" "$tmp_deb"
 
@@ -71,7 +72,8 @@ github_install_tar() {
   local binary_name="$3"
   local install_path="${4:-/usr/local/bin}"
 
-  local tmp_dir="/tmp/omubuntu-$(basename "$repo")"
+  local tmp_dir
+  tmp_dir="/tmp/omubuntu-$(basename "$repo")"
   local tmp_tar="$tmp_dir/archive.tar.gz"
 
   mkdir -p "$tmp_dir"

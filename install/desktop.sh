@@ -13,6 +13,7 @@ log "Installing desktop apps..."
 for installer in "$OMUBUNTU_PATH/install/desktop/"*.sh; do
   if [[ -f "$installer" ]]; then
     log "Running $(basename "$installer")..."
+    # shellcheck source=/dev/null
     source "$installer"
   fi
 done

@@ -25,6 +25,7 @@ apt_install \
 for installer in "$OMUBUNTU_PATH/install/terminal/"*.sh; do
   if [[ -f "$installer" ]]; then
     log "Running $(basename "$installer")..."
+    # shellcheck source=/dev/null
     source "$installer"
   fi
 done

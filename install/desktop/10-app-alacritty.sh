@@ -11,8 +11,6 @@ else
 
   # Set as default terminal (MATE desktop)
   if has_command gsettings; then
-    local user
-    user=$(get_user)
     as_user dbus-launch gsettings set org.mate.applications-terminal exec 'alacritty' 2>/dev/null || true
     as_user dbus-launch gsettings set org.mate.applications-terminal exec-arg '-e' 2>/dev/null || true
   fi
