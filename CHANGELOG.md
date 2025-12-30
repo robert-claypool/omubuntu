@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Handle missing USER environment variable in SSM contexts
 - Correct asset regex patterns for GitHub releases (case sensitivity)
 - Set HOME for atuin installer script
+- Add shell directive for shellcheck (SC2148)
+- Separate declaration and assignment in CLI (SC2155)
 
 ## [0.1.0] - 2024-12-30
 
