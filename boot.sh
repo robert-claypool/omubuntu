@@ -2,7 +2,7 @@
 # omubuntu bootstrap script
 #
 # Run this on a fresh Ubuntu system:
-#   wget -qO- https://raw.githubusercontent.com/YOUR_ORG/omubuntu/main/boot.sh | bash
+#   wget -qO- https://raw.githubusercontent.com/robert-claypool/omubuntu/main/boot.sh | bash
 
 set -e
 
@@ -26,7 +26,7 @@ sudo apt-get install -y git >/dev/null
 # Clone repo
 echo "Cloning omubuntu..."
 rm -rf ~/.local/share/omubuntu
-git clone https://github.com/YOUR_ORG/omubuntu.git ~/.local/share/omubuntu >/dev/null
+git clone https://github.com/robert-claypool/omubuntu.git ~/.local/share/omubuntu >/dev/null
 
 # Checkout specific ref if provided
 if [[ -n "${OMUBUNTU_REF:-}" ]]; then

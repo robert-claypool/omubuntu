@@ -14,7 +14,7 @@ wget -qO- https://raw.githubusercontent.com/YOUR_ORG/omubuntu/main/boot.sh | bas
 Or clone and run:
 
 ```bash
-git clone https://github.com/YOUR_ORG/omubuntu.git ~/.local/share/omubuntu
+git clone https://github.com/robert-claypool/omubuntu.git ~/.local/share/omubuntu
 cd ~/.local/share/omubuntu
 sudo ./install.sh install --user $USER
 ```
