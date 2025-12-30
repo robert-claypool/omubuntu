@@ -1,5 +1,7 @@
 # omubuntu
 
+> **Alpha Release** - This project is under active development. APIs and tool selections may change. Tested on Ubuntu 22.04 LTS.
+
 Omarchy-style developer environment for Ubuntu. Transform a fresh Ubuntu installation into a delightful, opinionated development system.
 
 Inspired by [Omakub](https://github.com/basecamp/omakub) and [Omarchy](https://github.com/basecamp/omarchy) by DHH.
@@ -8,7 +10,7 @@ Inspired by [Omakub](https://github.com/basecamp/omakub) and [Omarchy](https://g
 
 ```bash
 # On a fresh Ubuntu 22.04+ system
-wget -qO- https://raw.githubusercontent.com/YOUR_ORG/omubuntu/main/boot.sh | bash
+wget -qO- https://raw.githubusercontent.com/robert-claypool/omubuntu/main/boot.sh | bash
 ```
 
 Or clone and run:
@@ -23,9 +25,9 @@ sudo ./install.sh install --user $USER
 
 ### Terminal Tools
 - **Shell**: ZSH with Starship prompt
-- **Editor**: Neovim
+- **Editor**: Neovim 0.10+
 - **Git**: lazygit, GitHub CLI
-- **Modern CLI**: eza, fd, ripgrep, bat, fzf, zoxide
+- **Modern CLI**: eza, fd, ripgrep, bat, fzf, zoxide, atuin
 
 ### Desktop Apps
 - **Terminal**: Alacritty (Tokyo Night theme)
@@ -96,6 +98,14 @@ omubuntu/
 - **One script per tool**: Easy to understand, modify, or remove
 - **Safe dotfiles**: Only copied if destination doesn't exist
 - **Apply once**: Fresh VMs get new configs; existing are left alone
+
+## Versioning
+
+This project uses [Semantic Versioning](https://semver.org/). See [CHANGELOG.md](CHANGELOG.md) for release history.
+
+- **0.x.x** - Alpha: Active development, breaking changes expected
+- **1.0.0** - Beta: Feature complete, stabilizing
+- **1.x.x** - Stable: Production ready
 
 ## License
 
