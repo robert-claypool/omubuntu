@@ -4,16 +4,25 @@
 
 > **Beta Release** - Feature complete, stabilizing. Tested on Ubuntu 22.04 LTS.
 
-Omarchy-style developer environment for Ubuntu. Transform a fresh Ubuntu installation into a delightful, opinionated development system.
+## Why This Exists
+
+Ubuntu runs everywhere—bare metal, VMs, ARM, Apple Silicon, cloud instances. It's the safe, flexible choice. But it tries to be everything for everyone, which means it ships with defaults that aren't optimized for developers.
+
+Arch Linux takes the opposite approach: opinionated, developer-focused, delightful out of the box. But Arch asks you to buy into tiled window managers, specific hardware, and a steeper learning curve.
+
+**omubuntu bridges this gap.** Keep Ubuntu's flexibility and broad hardware support, but get an Arch-style developer experience—modern CLI tools, sensible shell defaults, and a curated set of applications that work well together.
+
+One command transforms a fresh Ubuntu into a system that's actually pleasant to develop on.
 
 Inspired by [Omakub](https://github.com/basecamp/omakub) and [Omarchy](https://github.com/basecamp/omarchy) by DHH.
 
 ## Requirements
 
-| Ubuntu Version | Status |
-|----------------|--------|
-| 22.04 LTS | Tested |
-| 24.04 LTS | CI only |
+| Distribution | Status |
+|--------------|--------|
+| Ubuntu 22.04 LTS | Tested |
+| Ubuntu 24.04 LTS | CI only |
+| Debian / other apt-based | Likely works, untested |
 
 Requires `sudo` access. Works on bare metal, VMs, and EC2 instances.
 
