@@ -1,9 +1,10 @@
+# shellcheck shell=bash
 # omubuntu managed ZSH configuration
 # This file is owned by omubuntu and may be updated automatically.
 # Customize your shell by editing ~/.zshrc (the user stub), not this file.
 
 # Helper: check if a command exists
-have() { command -v "$1" >/dev/null 2>&1 }
+have() { command -v "$1" >/dev/null 2>&1; }
 
 # oh-my-zsh configuration
 export ZSH="$HOME/.oh-my-zsh"
