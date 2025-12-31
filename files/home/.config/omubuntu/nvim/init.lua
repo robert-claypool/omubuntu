@@ -151,7 +151,12 @@ require("lazy").setup({
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require("nvim-treesitter.configs").setup({
+      -- Guard against first-run before plugin is installed
+      local ok, configs = pcall(require, "nvim-treesitter.configs")
+      if not ok then
+        return
+      end
+      configs.setup({
         ensure_installed = {
           "bash",
           "css",
@@ -172,6 +177,18 @@ require("lazy").setup({
         highlight = { enable = true },
         indent = { enable = true },
       })
+    end,
+  },
+
+  -- Comment toggling (gcc for line, gc for selection)
+  {
+    "numToStr/Comment.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local ok, comment = pcall(require, "Comment")
+      if ok then
+        comment.setup()
+      end
     end,
   },
 
