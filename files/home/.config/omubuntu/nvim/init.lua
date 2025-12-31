@@ -205,7 +205,11 @@ require("lazy").setup({
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     config = function()
-      require("mason-lspconfig").setup({
+      local ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+      if not ok then
+        return
+      end
+      mason_lspconfig.setup({
         ensure_installed = {
           "bashls",
           "gopls",
@@ -214,6 +218,8 @@ require("lazy").setup({
           "pyright",
           "yamlls",
         },
+        -- Disable automatic_enable - we configure servers manually below
+        automatic_enable = false,
       })
     end,
   },
