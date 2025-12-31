@@ -8,10 +8,17 @@ if has_command zsh; then
   log "ZSH already installed"
 else
   apt_install zsh
+  success "ZSH installed"
+fi
 
-  # Set ZSH as default shell for target user
-  _user=$(get_user)
+# Always ensure ZSH is the default shell (even if zsh was already installed)
+_user=$(get_user)
+_current_shell=$(getent passwd "$_user" | cut -d: -f7)
+
+if [[ "$_current_shell" != "/usr/bin/zsh" ]]; then
+  log "Setting ZSH as default shell for $_user..."
   chsh -s /usr/bin/zsh "$_user"
-
-  success "ZSH installed and set as default shell"
+  success "ZSH set as default shell"
+else
+  log "ZSH already default shell for $_user"
 fi
