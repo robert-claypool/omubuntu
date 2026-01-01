@@ -1,35 +1,23 @@
 #!/bin/bash
-# Install Chromium browser
+# Install Google Chrome browser
+# Using Chrome instead of Chromium snap because snaps have sandbox/AppArmor
+# issues with DCV virtual sessions and other non-standard X environments.
 
 source "$OMUBUNTU_PATH/lib/core.sh"
 source "$OMUBUNTU_PATH/lib/apt.sh"
 
-_os_id=""
-if [[ -f /etc/os-release ]]; then
-  # shellcheck disable=SC1091
-  source /etc/os-release
-  _os_id="${ID:-}"
-fi
-
-if [[ "$_os_id" == "ubuntu" ]]; then
-  if has_command chromium || (has_command snap && snap list chromium &>/dev/null); then
-    log "Chromium already installed"
-  else
-    if ! has_command snap; then
-      log "Installing snapd (required for Chromium on Ubuntu)..."
-      apt_install snapd
-    fi
-
-    log "Installing Chromium (snap)..."
-    snap install chromium
-    success "Chromium installed"
-  fi
+if has_command google-chrome || has_command google-chrome-stable; then
+  log "Google Chrome already installed"
 else
-  if has_command chromium || has_command chromium-browser; then
-    log "Chromium already installed"
-  else
-    log "Installing Chromium (apt)..."
-    apt_install chromium
-    success "Chromium installed"
-  fi
+  log "Installing Google Chrome..."
+
+  # Download and install the official Google Chrome deb
+  tmp_deb="/tmp/google-chrome-stable.deb"
+  curl -fsSL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -o "$tmp_deb"
+
+  # Install with apt to handle dependencies
+  apt_install "$tmp_deb"
+  rm -f "$tmp_deb"
+
+  success "Google Chrome installed"
 fi
