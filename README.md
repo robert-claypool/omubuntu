@@ -8,7 +8,7 @@
 
 Ubuntu runs everywhere—bare metal, VMs, ARM, Apple Silicon, cloud instances. It's the safe, flexible choice. But it tries to be everything for everyone, which means it ships with defaults that aren't optimized for developers.
 
-Arch Linux takes the opposite approach: opinionated, developer-focused, delightful out of the box. But Arch asks you to buy into tiled window managers, specific hardware, and a steeper learning curve.
+Arch Linux takes the opposite approach: opinionated, developer-focused, batteries not included, and a steeper learning curve.
 
 **omubuntu bridges this gap.** Keep Ubuntu's flexibility and broad hardware support, but get an Arch-style developer experience—modern CLI tools, sensible shell defaults, and a curated set of applications that work well together.
 
